@@ -1,0 +1,199 @@
+:root{
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --ink: #23262a;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --shadow: 0 10px 30px rgba(0,0,0,.07);
+  --radius: 14px;    /* a little tighter */
+  --pad: 12px;
+
+  /* JS will adjust this at runtime so everything fits */
+  --tile-canvas-h: 56px; /* safe fallback */
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+/* screens */
+.screen{ display:none; }
+.screen.is-active{ display:block; }
+
+/* board */
+.board{
+  min-height:100dvh;
+  padding:14px 18px;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:14px;
+  position:relative;
+}
+
+/* header */
+.board__header{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:8px 12px;
+  text-align:center;
+}
+.board__header h1{ margin:0; font-size:1rem; letter-spacing:.3px; }
+
+/* right rail */
+.rail{
+  position:fixed; right:12px; top:64px;
+  display:flex; flex-direction:column; gap:8px; z-index:10;
+}
+.rail__btn{
+  width:36px; height:36px; border-radius:10px;
+  border:1px solid var(--border); background:var(--surface);
+  box-shadow:var(--shadow); display:grid; place-items:center;
+  cursor:pointer; transition:transform .12s ease, box-shadow .12s ease;
+}
+.rail__btn svg{ width:20px; height:20px; color:#3f3f46; }
+.rail__btn:hover{ transform:translateY(-1px); }
+
+/* ===== MAIN GRID: 2 columns (images row on top, clickable row below) ===== */
+.grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns */
+  grid-auto-rows: 1fr;            /* rows keep equal height */
+  gap:12px;
+  align-items:stretch;
+}
+
+/* tile */
+.tile{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:var(--pad);
+  display:flex; flex-direction:column; gap:10px;
+  outline:none;
+}
+.tile:focus{ box-shadow:0 0 0 3px rgba(59,130,246,.25), var(--shadow); }
+
+.tile__title{
+  margin:0; text-align:center; color:var(--muted); font-size:.9rem;
+}
+
+/* media area — height is controlled by JS via --tile-canvas-h */
+.tile__canvas{
+  flex:1;
+  display:grid; place-items:center;
+  background:#f8f9fb;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  height: var(--tile-canvas-h) !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  overflow:hidden;
+}
+.tile__img{ width:100%; height:100%; object-fit:contain; display:block; }
+.placeholder{ font-size:22px; line-height:1; }
+
+/* actions panel under grid */
+.actions{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:12px;
+}
+.actions h3{ margin:0 0 10px; text-align:center; font-weight:600; font-size:.95rem; }
+.actions__row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.action-btn{
+  padding:10px 12px; border-radius:10px; border:1px solid var(--border);
+  background:#fff; cursor:pointer;
+  transition:transform .1s ease, box-shadow .15s ease; font-size:.95rem;
+}
+.action-btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow); }
+
+.log{
+  margin-top:10px; background:#fafafa; border:1px dashed #e5e7eb;
+  border-radius:10px; padding:8px 10px; min-height:32px; color:#374151; font-size:.9rem;
+}
+
+/* responsive: stack to 1 column on small screens */
+@media (max-width: 700px){
+  .grid{ grid-template-columns:1fr; }
+  .rail{ position:static; flex-direction:row; justify-content:center; }
+}
+
+/* nano-compact polish */
+:root{
+  --radius: 6px;
+  --pad: 6px;
+}
+.board{ padding: 10px 12px; gap: 10px; }
+.grid{ gap: 8px; }
+.tile{ gap: 8px; }
+.tile__title{ font-size: .86rem; }
+.actions{ padding: 10px; }
+.actions h3{ font-size: .9rem; margin-bottom: 8px; }
+.action-btn{ padding: 8px 10px; font-size: .9rem; border-radius: 8px; }
+.log{ padding: 8px 10px; min-height: 28px; font-size: .88rem; border-radius: 8px; }
+
+/* === Shrink tiles to image size (exact-fit) === */
+
+/* stop equal-height rows; let content size the rows */
+.grid{
+  grid-auto-rows: auto !important;
+  align-items: start !important;
+}
+
+/* tighter tile chrome */
+.tile{
+  padding: 6px !important;
+  gap: 6px !important;
+  border-radius: 8px !important;
+}
+
+/* (optional) smaller title so it doesn't puff the tile */
+.tile__title{
+  font-size: .8rem !important;
+  margin: 0 !important;
+}
+
+/* make the canvas wrap the image exactly */
+.tile__canvas{
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  display: inline-block !important;  /* shrink-to-fit */
+}
+
+/* scale the image; the tile will match this size */
+:root{ --tile-img-max-h: 250px; }  /* tweak to taste */
+.tile__canvas .tile__img{
+  display: block !important;
+  max-height: var(--tile-img-max-h) !important;
+  max-width: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  margin: 0 auto !important;
+}
+
+/* make emoji placeholders match image sizing */
+.tile__canvas .placeholder{
+  font-size: calc(var(--tile-img-max-h) * 0.8) !important;
+  line-height: 1 !important;
+}
+
+/* compact actions/log so everything fits nicely */
+.actions{ padding: 8px !important; }
+.actions h3{ font-size: .9rem !important; margin-bottom: 6px !important; }
+.action-btn{ padding: 6px 8px !important; font-size: .88rem !important; border-radius: 8px !important; }
+.log{ padding: 6px 8px !important; min-height: 22px !important; font-size: .84rem !important; }

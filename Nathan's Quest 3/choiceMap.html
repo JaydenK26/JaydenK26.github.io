@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Area Interaction UI</title>
+  <link rel="stylesheet" href="choiceMapStyles.css" />
+</head>
+<body>
+  <main class="board">
+    <header class="board__header">
+      <h1>Landscape/Desktop</h1>
+    </header>
+
+    <!-- Right-side quick tools -->
+    <nav class="rail" aria-label="Quick tools">
+      <button class="rail__btn" id="btnStats" title="Stats" aria-label="Stats">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h2v10H5V9Zm6-4h2v14h-2V5Zm6 7h2v7h-2v-7Z"/></svg>
+      </button>
+      <button class="rail__btn" id="btnBag" title="Bag" aria-label="Bag">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7V6a5 5 0 0 1 10 0v1h3v13H4V7h3Zm2 0h6V6a3 3 0 0 0-6 0v1Z"/></svg>
+      </button>
+      <button class="rail__btn" title="Map" aria-label="Map" id="btnMap">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3 3 5v16l6-2 6 2 6-2V3l-6 2-6-2Zm0 2.2 6 2V20l-6-2-4 1.3V6.5L9 5.2Zm12 .3v12.8l-4 1.3V8.8l4-1.3Z"/></svg>
+      </button>
+    </nav>
+
+     <!-- ===== Screens ===== -->
+<!-- Location screens are inserted here by JS -->
+<div id="screens-root"></div>
+<!-- ===== End Screens ===== -->
+
+  </main>
+
+  <script src="choiceMapScript.js"></script>
+</body>
+</html>

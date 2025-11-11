@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="authStyles.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>Create account</h1>
+
+    <form id="f">
+      <label>Email
+        <input id="email" type="email" required />
+      </label>
+      <label>Password
+        <input id="password" type="password" required minlength="6" />
+      </label>
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p class="muted">Already have an account? <a href="login.html">Log in</a></p>
+    <div id="msg" class="msg"></div>
+  </main>
+
+  <script>
+  // ✅ Use a defined constant; do not call fetch(url, ...) unless you've defined url.
+  const API = 'https://csunix.mohawkcollege.ca/~sa000854737/register.php';
+
+  const form = document.getElementById('f');
+  const msg  = document.getElementById('msg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.textContent = 'Creating account…';
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    try {
+      const res = await fetch('https://csunix.mohawkcollege.ca/~sa000854737/register.php', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  credentials: 'include',               // required for PHP session cookie
+  body: JSON.stringify({ email, password })
+});
+
+
+      const json = await res.json();
+      if (!res.ok || json.error) {
+        throw new Error(json.message || ('HTTP ' + res.status));
+      }
+
+      msg.textContent = 'Success! Redirecting…';
+      // Go to your protected page after signup
+      location.href = 'inventory.html';
+    } catch (err) {
+      msg.textContent = 'Error: ' + err.message;
+      console.error(err);
+    }
+  });
+  </script>
+</body>
+</html>

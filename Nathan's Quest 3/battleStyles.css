@@ -1,0 +1,200 @@
+:root{
+  --bg:#f6f7fb;
+  --surface:#fff;
+  --ink:#1f2328;
+  --muted:#030a18;
+  --border:#e5e7eb;
+  --accent:#22c55e;       /* HP */
+  --mana:#3b82f6;         /* MP */
+  --shadow:0 10px 30px rgba(0,0,0,.08);
+  --radius:16px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+.battle{
+  width:min(1100px, 95vw);
+  margin:20px auto;
+  background:var(--surface);
+  border:1px solid #cfcfd7;
+  border-radius:10px;
+  box-shadow:var(--shadow);
+  display:grid;
+  grid-template-rows:auto 1fr auto auto;
+  gap:14px;
+  padding:14px 18px 18px;
+}
+
+.battle__header h1{
+  margin:0;
+  text-align:center;
+  font-size:1rem;
+  color:var(--muted);
+}
+
+
+
+/* Arena */
+.arena{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  align-items:center;
+  gap:10px;
+  min-height: 300px;
+}
+
+/* BEFORE you had absolute positioning; remove it */
+.actor{ /* NEW */
+  display:flex;
+  flex-direction:column;
+  gap:12px;               /* space between bars and image */
+  align-items:flex-start; /* left actor bars align left */
+  padding:8px;
+}
+
+.actor--right{            /* right actor bars align right */
+  align-items:flex-end;
+}
+
+.actor__figure{
+  margin:0;
+  text-align:center;
+}
+.actor__figure img{
+  max-width: 260px;
+  width: min(60vw, 260px);
+  max-height: 220px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.1));
+}
+.actor__figure figcaption{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:.95rem;
+}
+
+.actor__stats{            /* NEW: no absolute positioning */
+  position: static;
+  width: min(320px, 42vw); /* responsive max width for bars */
+}
+.actor__stats--right{     /* keep right text alignment */
+  text-align:right;
+}
+
+.stat{                     /* bar expands, labels hug ends */
+  display:grid;
+  grid-template-columns: auto 1fr auto; /* label | bar | value */
+  gap:8px;
+  align-items:center;
+  margin:6px 0;
+}
+.stat__label{ color:#374151; font-weight:600; }
+.stat__value{ color:#111827; font-variant-numeric:tabular-nums; }
+
+.bar{                      /* fills the middle column */
+  height:12px;
+  border-radius:999px;
+  background:#f1f5f9;
+  overflow:hidden;
+  border:1px solid var(--border);
+  width:100%;              /* << important */
+}
+.bar__fill{
+  height:100%;
+  width:100%;
+  background:var(--accent);
+  transition: width .25s ease;
+}
+.bar__fill--mp{ background:var(--mana); }
+
+/* Actions */
+.actions{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:14px;
+}
+.action{
+  padding:14px 10px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+  cursor:pointer;
+  transition: transform .1s ease, box-shadow .15s ease;
+}
+.action:hover{ transform: translateY(-1px); box-shadow:var(--shadow); }
+
+/* Log */
+.log{
+  background:#fafafa;
+  border:1px dashed var(--border);
+  border-radius:12px;
+  padding:10px 12px;
+  min-height:38px;
+  text-align:center;
+}
+
+/* Dialogs */
+.dlg{
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  width:min(360px, 92vw);
+}
+.dlg::backdrop{ background:rgba(0,0,0,.25); }
+.dlg h3{ margin-top:0; }
+.list{ list-style:none; margin:0 0 10px; padding:0; }
+.list__btn{
+  width:100%; text-align:left;
+  padding:10px 12px; border-radius:10px;
+  border:1px solid var(--border); background:#fff; cursor:pointer;
+}
+.list__btn + .list__btn{ margin-top:8px; }
+.dlg__close{
+  padding:8px 10px; border-radius:10px; border:1px solid var(--border); background:#fff; cursor:pointer;
+}
+
+/* Responsive */
+@media (max-width: 860px){
+  .arena{ grid-template-columns:1fr; }
+  .actor__figure img{ width: 55%; }
+  .actions{ grid-template-columns: 1fr 1fr; }
+}
+
+/* Image background INSIDE the white battle card */
+.battle{
+  position: relative;
+  overflow: hidden;                 /* clip image to card radius */
+  --card-bg-image: none;            /* url("...") or 'none' */
+  --card-bg-opacity: .18;           /* 0..1 */
+  --card-bg-filter: none;           /* e.g., blur(1px) grayscale(.1) */
+}
+
+/* draws the image above the white background, below content */
+.battle::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--card-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: var(--card-bg-filter);
+  opacity: var(--card-bg-opacity);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* keep your normal content above the bg */
+.battle > *{
+  position: relative;
+  z-index: 1;
+}
+
+

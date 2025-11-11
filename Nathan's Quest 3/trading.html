@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shop (Portrait)</title>
+  <link rel="stylesheet" href="tradingStyles.css" />
+</head>
+<body>
+  <main class="frame">
+    <header class="frame__header">
+      <h1>Portrait</h1>
+    </header>
+
+    <!-- Right-side quick rail (decorative; hook up as you like) -->
+    <nav class="rail" aria-label="Quick tools">
+      <button class="rail__btn" title="Stats" aria-label="Stats">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h2v10H5V9Zm6-4h2v14h-2V5Zm6 7h2v7h-2v-7Z"/></svg>
+      </button>
+      <button class="rail__btn" title="Bag" aria-label="Bag">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7V6a5 5 0 0 1 10 0v1h3v13H4V7h3Zm2 0h6V6a3 3 0 0 0-6 0v1Z"/></svg>
+      </button>
+      <button class="rail__btn" title="Log" aria-label="Log">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v2H5V4Zm0 7h14v2H5v-2Zm0 7h14v2H5v-2Z"/></svg>
+      </button>
+    </nav>
+
+    <section class="shop">
+      <!-- NPC -->
+      <aside class="npc">
+        <img
+          src="https://images.unsplash.com/photo-1580983561371-7f4b7a8f8a3e?q=80&w=300&auto=format&fit=crop"
+          alt="Shopkeeper"
+        />
+        <div class="bubble">“Welcome! Browse my wares.”</div>
+      </aside>
+
+      <!-- Panel -->
+      <section class="panel" aria-label="Shop panel">
+        <div class="tabs" role="tablist" aria-label="Buy or Sell">
+          <button id="tabBuy"   class="tab is-active" role="tab" aria-selected="true"  aria-controls="paneBuy">Buy</button>
+          <button id="tabSell"  class="tab"          role="tab" aria-selected="false" aria-controls="paneSell">Sell</button>
+        </div>
+
+        <div class="panel__body">
+          <!-- List -->
+          <div class="list" id="itemList" role="listbox" aria-label="Items"></div>
+
+          <!-- Details -->
+          <div class="details" id="details">
+            <div class="hazy" id="hint">Select an item to see details</div>
+
+            <dl class="spec">
+              <div><dt>Type:</dt><dd id="dType">—</dd></div>
+              <div><dt>Name:</dt><dd id="dName">—</dd></div>
+              <div><dt>Price:</dt><dd id="dPrice">—</dd></div>
+            </dl>
+
+            <div class="qty">
+              <label for="qty">Qty</label>
+              <input id="qty" type="number" min="1" value="1" />
+            </div>
+
+            <button id="actBtn" class="cta" disabled>Buy</button>
+          </div>
+        </div>
+
+        <footer class="panel__footer">
+          <div class="gold">Your Gold: <strong id="gold">1,354</strong></div>
+        </footer>
+      </section>
+    </section>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script src="tradingScript.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inventory</title>
+  <link rel="stylesheet" href="inventoryStyles.css" />
+</head>
+<body>
+  <main class="inv" data-page="inventory">
+    <header class="inv__header">
+      <a href="choiceMap.html" class="btn btn--ghost" aria-label="Back to map">← Back</a>
+      <h1>Inventory</h1>
+
+      <div class="toolbar">
+        <label class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20l-6-6ZM10 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/></svg>
+          <input id="q" type="search" placeholder="Search items…" autocomplete="off" />
+        </label>
+
+        <div class="sort">
+          <button id="sortBtn" class="btn" aria-haspopup="menu" aria-expanded="false">
+            Sort
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+          </button>
+          <div id="sortMenu" class="menu" role="menu" aria-labelledby="sortBtn" hidden>
+            <button class="menu__item" role="menuitemradio" data-sort="alpha" aria-checked="true">Alphabetical</button>
+            <button class="menu__item" role="menuitemradio" data-sort="recent" aria-checked="false">Most recent</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid" id="grid" aria-live="polite">
+      <!-- cards injected here -->
+    </section>
+
+    <footer class="inv__footer">
+      <div id="status" class="status" aria-live="polite">Loaded.</div>
+    </footer>
+  </main>
+
+  <script src="inventoryScript.js"></script>
+</body>
+</html>

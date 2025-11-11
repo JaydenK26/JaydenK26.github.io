@@ -1,0 +1,141 @@
+:root{
+  --bg:#f6f7fb;
+  --surface:#fff;
+  --ink:#1f2328;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --shadow:0 10px 30px rgba(0,0,0,.08);
+  --radius:16px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+.board{
+  width:min(1100px,95vw);
+  margin:20px auto;
+  background:var(--surface);
+  border:1px solid #cfd2da;
+  border-radius:10px;
+  box-shadow:var(--shadow);
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:16px;
+  padding:14px 18px 18px;
+  position:relative;
+}
+
+.board__header h1{
+  margin:0;
+  text-align:center;
+  font-size:1rem;
+  color:var(--muted);
+}
+
+/* Rail */
+.rail{
+  position:fixed;
+  right:16px;
+  top:80px;
+  display:flex; flex-direction:column; gap:10px;
+}
+.rail__btn{
+  width:40px; height:40px; border-radius:10px;
+  border:1px solid var(--border); background:#fff;
+  display:grid; place-items:center; box-shadow:var(--shadow);
+  cursor:pointer;
+  transition: transform .1s ease;
+}
+.rail__btn:hover{ transform:translateY(-1px); }
+.rail__btn svg{ width:22px; height:22px; fill:#3f3f46; }
+
+/* NPC zone */
+.npc-zone{
+  display:grid; place-items:center;
+  padding:8px;
+  min-height:320px;
+}
+.npc{
+  margin:0;
+  display:grid; place-items:center;
+  background:#fafafa;
+  border:1px solid var(--border);
+  border-radius:18px;
+  width:min(420px, 70%);
+  aspect-ratio: 4 / 3;
+  overflow:hidden;
+}
+.npc img{
+  max-width:100%; max-height:100%;
+  object-fit:contain;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.12));
+}
+
+/* Actions */
+.actions h2{
+  margin:0 0 10px; text-align:center; font-size:1rem; color:#444;
+}
+.actions__row{
+  display:flex; gap:16px;
+  justify-content:center; flex-wrap:wrap;
+  margin-bottom:10px;
+}
+.btn{
+  padding:12px 16px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+  cursor:pointer;
+  transition: transform .1s ease, box-shadow .15s ease;
+}
+.btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow); }
+.btn--ghost{ background:#f9fafb; }
+
+.log{
+  background:#fafafa;
+  border:1px dashed var(--border);
+  border-radius:12px;
+  padding:10px 12px; min-height:38px;
+  text-align:center;
+}
+
+/* Dialog / Trade */
+.dlg{
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  width:min(520px, 96vw);
+}
+.dlg::backdrop{ background:rgba(0,0,0,.25); }
+.dlg h3{ margin:0 0 10px; }
+.trade{
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+  margin-bottom:12px;
+}
+.trade h4{ margin:0 0 8px; color:var(--muted); }
+.chip{
+  display:inline-block;
+  margin:6px 6px 0 0;
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:#fff;
+  cursor:pointer;
+}
+.chip--npc{ background:#f8fafc; }
+.chip[aria-pressed="true"]{
+  border-color:#93c5fd; background:#eef5ff;
+}
+.dlg__row{ display:flex; justify-content:flex-end; gap:10px; }
+
+/* Responsive */
+@media (max-width: 860px){
+  .rail{ position:static; flex-direction:row; justify-content:center; margin-bottom:6px; }
+  .trade{ grid-template-columns:1fr; }
+}

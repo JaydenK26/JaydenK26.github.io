@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Log In</title>
+  <link rel="stylesheet" href="authStyles.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>Welcome back</h1>
+
+    <form id="f" novalidate>
+      <label>
+        Email
+        <input id="email" type="email" name="email" autocomplete="email" required />
+      </label>
+      <label>
+        Password
+        <input id="password" type="password" name="password" autocomplete="current-password" required />
+      </label>
+      <button id="btn" type="submit">Log In</button>
+    </form>
+
+    <p class="muted">New here? <a href="signup.html">Create an account</a></p>
+    <div id="msg" class="msg" role="status" aria-live="polite"></div>
+  </main>
+
+  <script>
+  // ====== CONFIG ======
+  const API_LOGIN = 'https://csunix.mohawkcollege.ca/~sa000854737/login.php';
+  // Where to go after login:
+  const REDIRECT_TO = 'inventory.html'; // or 'choiceMap.html'
+
+  // Small helper: safely parse JSON (so HTML error pages don't crash .json())
+  async function safeJson(res){
+    const text = await res.text();
+    try { return JSON.parse(text); } catch { return { _raw: text }; }
+  }
+
+  const form = document.getElementById('f');
+  const msg  = document.getElementById('msg');
+  const btn  = document.getElementById('btn');
+  const emailEl = document.getElementById('email');
+  const passEl  = document.getElementById('password');
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+
+    // Basic front-end validation
+    const email = emailEl.value.trim().toLowerCase();
+    const password = passEl.value;
+
+    if (!email || !password) {
+      msg.textContent = 'Please enter your email and password.';
+      return;
+    }
+
+    // UI: disable while submitting
+    btn.disabled = true;
+    msg.textContent = 'Logging in…';
+
+    try {
+      const res = await fetch(API_LOGIN, {
+        method: 'POST',
+        credentials: 'include', // <-- REQUIRED so PHP session cookie is stored
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await safeJson(res);
+
+      if (!res.ok) {
+        // Prefer server message if provided
+        const serverMsg = (data && (data.message || data.error || data._raw)) || `HTTP ${res.status}`;
+        throw new Error(serverMsg);
+      }
+
+      // Success → redirect
+      msg.textContent = 'Success! Redirecting…';
+      window.location.href = REDIRECT_TO;
+    } catch (err) {
+      console.error(err);
+      msg.textContent = 'Error: ' + err.message;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+  </script>
+</body>
+</html>

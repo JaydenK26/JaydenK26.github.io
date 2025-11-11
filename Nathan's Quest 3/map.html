@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>World Map UI</title>
+  <link rel="stylesheet" href="mapStyles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <!-- Open Map control -->
+    <div class="open">
+      <p>Click this to open</p>
+      <button id="openMap" class="icon-btn" aria-expanded="false" aria-controls="mapPanel" title="Open map">
+        <!-- map icon -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 3 3 5v16l6-2 6 2 6-2V3l-6 2-6-2Zm0 2.2 6 2V20l-6-2-4 1.3V6.5L9 5.2Zm12 .3v12.8l-4 1.3V8.8l4-1.3Z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Map panel -->
+    <section id="mapPanel" class="panel" data-open="false" aria-label="World map">
+      <header class="panel__header">
+        <h1>Landscape/Desktop</h1>
+        <p class="muted">Click map image to travel</p>
+      </header>
+
+      <div class="map-grid">
+        <!-- Left: Village -->
+        <article class="loc" tabindex="0" data-loc="Basic Village">
+          <h2 class="loc__title">Basic Village Name Insert Here</h2>
+          <figure class="loc__card">
+            <!-- Replace with your actual image -->
+            <div class="placeholder">Insert Map Image</div>
+          </figure>
+        </article>
+
+        <!-- Center: Spooky -->
+        <article class="loc" tabindex="0" data-loc="Spooky Place">
+          <h2 class="loc__title">Spooky Name Insert Here<br><span class="accent">oOoOoO</span></h2>
+          <figure class="loc__card">
+            <div class="placeholder">Insert Map Image</div>
+          </figure>
+        </article>
+
+        <!-- Right: Final Boss -->
+        <article class="loc" tabindex="0" data-loc="Final Boss Location">
+          <h2 class="loc__title">Final Boss Location Name Insert Here</h2>
+          <figure class="loc__card">
+            <div class="placeholder">Insert Map Image</div>
+          </figure>
+        </article>
+      </div>
+
+      <footer class="panel__footer" aria-live="polite">
+        <div id="log" class="log">Choose a destination…</div>
+      </footer>
+    </section>
+  </main>
+
+  <script src="mapScript.js"></script>
+</body>
+</html>

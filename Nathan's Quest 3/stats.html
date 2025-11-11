@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stats Panel UI</title>
+  <link rel="stylesheet" href="statsStyles.css" />
+</head>
+<body>
+  <main class="layout">
+    <aside class="opener">
+      <p class="hint">Click this to open</p>
+      <button id="openPanel" class="icon-btn" aria-expanded="false" aria-controls="statsPanel" title="Open stats">
+        <!-- simple person icon -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-5 0-9 2.69-9 6v1h18v-1c0-3.31-4-6-9-6Z"/>
+        </svg>
+      </button>
+    </aside>
+
+    <section class="panel" id="statsPanel" aria-label="Stats" data-open="true">
+      <header class="panel__header">
+        <h1>Portrait/Desktop/Landscape</h1>
+        <h2>Stats</h2>
+      </header>
+
+      <div class="panel__body">
+        <div class="tip">Plus will show up if there are available points left over</div>
+
+        <ul class="stats" role="list">
+          <li class="stat-row" data-key="health">
+            <span class="label">Health:</span>
+            <span class="value" data-value>10</span>
+            <button class="add" data-add aria-label="Add to Health" hidden>+</button>
+          </li>
+          <li class="stat-row" data-key="strength">
+            <span class="label">Strength:</span>
+            <span class="value" data-value>10</span>
+            <button class="add" data-add aria-label="Add to Strength" hidden>+</button>
+          </li>
+          <li class="stat-row" data-key="skill">
+            <span class="label">Skill:</span>
+            <span class="value" data-value>10</span>
+            <button class="add" data-add aria-label="Add to Skill" hidden>+</button>
+          </li>
+          <li class="stat-row" data-key="mana">
+            <span class="label">Mana:</span>
+            <span class="value" data-value>10</span>
+            <button class="add" data-add aria-label="Add to Mana" hidden>+</button>
+          </li>
+        </ul>
+
+        <div class="footer">
+          <p class="points">Stat points left: <span id="pointsLeft">5</span></p>
+          <p class="cheater-note">Cheater role will see points at 99999999</p>
+
+          <!-- demo toggle so you can see the “cheater” behavior without server code -->
+          <label class="cheater-toggle">
+            <input type="checkbox" id="cheaterToggle" />
+            Cheater role (demo)
+          </label>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="stats.js"></script>
+</body>
+</html>

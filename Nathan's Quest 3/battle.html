@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Battle UI</title>
+  <link rel="stylesheet" href="battleStyles.css" />
+</head>
+<body>
+  <main class="battle">
+    <header class="battle__header"></header>
+
+    <section class="arena" aria-label="Battlefield">
+      <!-- Player side -->
+      <article class="actor actor--left" aria-label="Player">
+        <div class="actor__stats">
+          <div class="stat">
+            <span class="stat__label">HP</span>
+            <div class="bar" data-for="p-hp"><div class="bar__fill" id="pHpBar"></div></div>
+            <span id="pHpText" class="stat__value">100/100</span>
+          </div>
+          <div class="stat">
+            <span class="stat__label">MP</span>
+            <div class="bar" data-for="p-mp"><div class="bar__fill bar__fill--mp" id="pMpBar"></div></div>
+            <span id="pMpText" class="stat__value">100/100</span>
+          </div>
+        </div>
+        <figure class="actor__figure">
+          <!-- replace with your own image if you like -->
+          <img src="nathan.jpg"
+               alt="Player" />
+          <figcaption>Player</figcaption>
+        </figure>
+      </article>
+
+      <!-- NPC side -->
+      <article class="actor actor--right" aria-label="NPC">
+        <div class="actor__stats actor__stats--right">
+          <div class="stat">
+            <span class="stat__label">HP</span>
+            <div class="bar" data-for="e-hp"><div class="bar__fill" id="eHpBar"></div></div>
+            <span id="eHpText" class="stat__value">80/100</span>
+          </div>
+          <div class="stat">
+            <span class="stat__label">MP</span>
+            <div class="bar" data-for="e-mp"><div class="bar__fill bar__fill--mp" id="eMpBar"></div></div>
+            <span id="eMpText" class="stat__value">100/100</span>
+          </div>
+        </div>
+        <!-- Give the image and caption IDs so JS can update them -->
+  <figure class="actor__figure">
+    <img id="npcImg"
+         src="https://images.unsplash.com/photo-1580983561371-7f4b7a8f8a3e?q=80&w=400&auto=format&fit=crop"
+         alt="NPC" />
+    <figcaption id="npcName">NPC</figcaption>
+  </figure>
+      </article>
+    </section>
+
+    <!-- Actions -->
+    <nav class="actions" aria-label="Battle actions">
+      <button id="btnFight" class="action">FIGHT</button>
+      <button id="btnSkills" class="action" aria-haspopup="dialog">SKILLS</button>
+      <button id="btnItems" class="action" aria-haspopup="dialog">ITEMS</button>
+      <button id="btnFlee" class="action">FLEE</button>
+    </nav>
+
+    <!-- Readout / log -->
+    <section class="log" id="log" aria-live="polite">A wild encounter appears…</section>
+  </main>
+
+  <!-- Skills / Items popovers -->
+  <dialog id="skillsDlg" class="dlg">
+  <h3>Skills</h3>
+  <ul class="list" id="skillsList"><!-- populated by JS --></ul>
+  <button class="dlg__close" data-close>Close</button>
+</dialog>
+
+<dialog id="itemsDlg" class="dlg">
+  <h3>Items</h3>
+  <ul class="list" id="itemsList"><!-- populated by JS --></ul>
+  <button class="dlg__close" data-close>Close</button>
+</dialog>
+
+
+  <script src="battleScript.js"></script>
+</body>
+</html>
